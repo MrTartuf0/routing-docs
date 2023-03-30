@@ -42,7 +42,7 @@ const config = {
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           editUrl:
-            'https://github.com/MrTartuf0/routing-docs',
+            'https://github.com/MrTartuf0/routing-docs/tree/master/',
         },
         blog: {
           showReadingTime: true,
@@ -85,7 +85,7 @@ const config = {
       },
       footer: {
         style: 'dark',
-        copyright: `Copyright © ${new Date().getFullYear()} Routing Docs, Inc. Built with Docusaurus.`,
+        copyright: `Copyright © ${new Date().getFullYear()} Routing Docs, Built with ❤️ by √italiy.`,
       },
       prism: {
         theme: lightCodeTheme,
