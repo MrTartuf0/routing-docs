@@ -39,7 +39,17 @@ Tra  questi  analizzeremo  in  dettaglio,  nella  lezione  3,  l’algoritmo Sho
 
 2. Algoritmi dinamici o con conoscenza parziale (di di-stance  vector  ):  in  questi  protocolli  ciascun  router non dispone di informazioni sulla topo-logia  di  rete  completa  ma  dialoga  con  gli  altri  router e riceve informazioni che gli permettono di  popolare  la  tabella  raccogliendo  i  dati  sugli  aggiornamenti delle configurazioni delle diverse sottoreti: il processo di aggiornamento continua finché non si giunge ad avere delle informazioni stabili in ciascun router.
 
-:::tip Nota Bene
-Tra  questi  analizzeremo  in  dettaglio,  nella  pros-sima lezione, l’algoritmo di Bellman-Ford
-:::
+:::tip PER SAPERNE DI PIÙ
+**PROTOCOLLI IGP E EGP**
+
+I protocolli utilizzati per sistemi interni, cioè gli IGP, sono:
+* Distance-vector routing protocol
+    - Routing Information Protocol (RIP)
+    - Interior Gateway Routing Protocol (IGRP)
+    - Enhanced Interior Gateway Routing Protocol (EIGRP)
+* Link-state routing protocol
+    - Open Shortest Path First (OSPF)
+    - Intermediate System To Intermediate System (IS-IS)
+
+Per  l’interconnessione  tra  sistemi  in  Internet  si  utilizza  un  unico  protocollo,  il  Border  Gateway  Protocol  Version  4  (BGP-4) definito in RFC 1771che è quindi l’unico protocolloEGP
 

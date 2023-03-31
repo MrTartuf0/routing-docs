@@ -126,7 +126,7 @@ L’algoritmo di Dijkstra (che descriveremo in seguito) permette di calcolare il
 È la stessa possibile alternativa offerta dai navigatori satellitari, cioè quella di poter scegliere un itinerario cercando o di percorrere il numero minimo di chilometri oppure di impiegare il minore tempo possibile
 :::
 
-### Flooding
+<!-- ### Flooding
 La  tecnica  del  flooding consiste  nell’inviare  ogni  pacchetto  su  tutte  le  porte  di  uscita  (tranne  naturalmente  quella da cui è arrivato).
 
 Un generico pacchetto verrà sicuramente ricevuto da tutti i nodi della rete compreso quello a cui è effettiva-mente destinato e quindi, in linea di principio, il flooding può essere usato come algoritmo di routing.
@@ -150,7 +150,7 @@ Questo algoritmo calcola il percorso migliore in base al traffico medio di ogni 
 
 :::tip Nota Bene 
 Questo  metodo  è  simile  a  quello  che  ogni  automobilista  utilizza  per  raggiungere  una  destinazione  evitando  le  strade dove sa già, per esperienza, che saranno trafficate: se però tutti utilizzassero questo metodo di fatto nessuno passerebbe sulle strade trafficate, che diventerebbero deserte, e tutti gli automobilisti finirebbero “in coda” su strade alternative.
-:::
+::: -->
 
 ## L’algoritmo di Dijkstra
 L’algoritmo di Dijkstra è un algoritmo che rientra tra gli shortest path routing e permette di calcolare l’albero dei cammini minimi tra un nodo di un grafo e tutti gli altri in modo da configurare le tabelle di routing: data la sua natura statica, se cambia la configurazione della rete, è necessario ricalcolare l’albero dei cammini minimi ripartendo da capo.
@@ -162,6 +162,73 @@ Prima di vedere come procedere, definiamo innanzitutto l’obiettivo che è quel
 Il metodo di Dijkstra si assegna ai nodi delle etichette, che possono essere:
 * temporanee: il costo massimo per la raggiungibilità del nodo in esame;
 * permanenti: costo del cammino minimo.
+
+Vediamo  un  semplice  esempio  applicando  l’algoritmo  al  grafo  non  orientato della figura:
+
+![esempio](/img/d1.png)
+
+Scegliamo  “a  piacere”  un  nodo,  in  quanto  il  risultato  che  otteniamo  è  ininfluente dal nodo di partenza, e iniziamo a scrivere le etichette prov-visoriesui due nodi a esso adiacenti.
+
+Partiamo da A ed etichettiamo B con 1 e F con 3.
+
+![esempio](/img/d2.png)
+
+Scegliamo  ora  il  “percorso  meno  costoso”  che  si  è  individuato,  cioè  quello  che  parte  dal  nodo  B,  e  ripetiamo  le  stesse  operazioni  asse-gnando le etichette provvisorie ai nodi C, F ed E ottenute come somma dei percorsi dal nodo precedente (1) e dei nuovi pesi dei rispettivi archi:
+
+![esempio](/img/d3.png)
+
+:::tip Nota Bene 
+La  scelta  secondo  la  quale  il  nodo  successivo  da  visitare  è  quello  più  vicino  a  uno  dei  nodi  già  visitati  dà  il  nome  all’al-goritmo Shortest Path First, cioè prima il percorso più breve.
+:::
+
+Procediamo in modo analogo scegliendo il percorso più corto tra  i  tre  sino  a  ora  individuati,  cioè  quello  che  ha  raggiunto  il  nodo  F  (peso  2),  e  aggiorniamo  le  etichette  dei  nodi  a  esso  adiacenti (DD = 2 + 6 = 8, DE = 2 + 2):
+
+![esempio](/img/d4.png)
+
+Con lo stesso criterio il prossimo nodo da analizzare è il nodo E  (peso  4):  dal  nodo  E  possiamo  raggiungere  il  nodo  D  con  peso DD = 4 + 1 = 5 che è minore del precedente valore dell’e-tichetta  provvisoria:  la  sostituiamo  con  una  nuova  etichetta  provvisoria.Il  nodo  con  peso  minore  tra  quelli  che  non  sono  ancora  stati  analizzati è il C che ha peso 4, ma non porta migliorie in quanto la  sua  distanza  da  D  ha  peso  2  che  peggiorerebbe  l’etichetta  parziale
+
+![esempio](/img/d5.png)
+
+Ultimo nodo è il nodo D, ma anch’esso non introduce migliorie e quindi le etichette provvisorie diventano permanenti e si ottiene il seguente albero minimo:
+
+![esempio](/img/d6.png)
+
+:::tip per saperne di più
+### PSEUDOCODIFICA
+Vediamo un esempio di codifica in linguaggio di progetto dell’algoritmo di Dijkstra, dopo aver introdotto la notazione che verrà utilizzata per comodità nello pseudocodice: 
+
+* c(x,y): costo del collegamento dal nodo x al nodo y; è posto a ∞ se non sono adiacenti;
+* D(v): costo del cammino dal nodo origine alla destinazione v per quanto riguarda l’iterazione corrente
+* p(v): immediato predecessore di v lungo il cammino
+* N’: sottoinsieme di nodi per cui il cammino a costo minimo dall’origine è definitivamente noto;
+* N: insieme di tutti i nodi presenti nel grafo
+``` txt 
+1 Inizializzazione 
+2 N’ = {u} 
+3 per tutti i nodi v // oppure finché N’ = N 
+4  se v è adiacente a u 
+5  allora D(v) = c(u,v) 
+6  altrimenti D(v) = ∞ 
+7  ripeti 
+8    determina un w non in N’ tale che D(w) sia minimo 
+9    aggiungi w a N’
+10  per ciascun nodo v adiacente a w e non in N’
+11    aggiorna D(v) = min(D(v), D(w) + c(w,v))
+```
+
+Dove con l’istruzione:
+
+```txt
+11 D(v) = min(D(v), D(w) + c(w,v))
+```
+
+si  assegna  a  D(v)  il  nuovo  costo  verso  v  che  è  il  valore  minimo  tra il vecchio costo presente nella etichetta temporanea oppure il costo del cammino minimo noto verso w più il costo da w a v.Lo applichiamo alla seguente rete:
+
+![esempio](/img/algo.png)
+
+ottenendo: 
+
+![esempio](/img/table.png)
 
 
 
